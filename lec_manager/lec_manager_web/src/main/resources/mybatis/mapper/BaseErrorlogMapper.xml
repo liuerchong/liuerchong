@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liuerchong.log.mapper.BaseErrorlogMapper" >
+  <resultMap id="BaseResultMap" type="com.liuerchong.log.pojo.BaseErrorlog" >
+    <result column="LOG_ID" property="logId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+    <result column="OPT_DATE" property="optDate" jdbcType="VARCHAR" />
+    <result column="OPT_STATUS" property="optStatus" jdbcType="VARCHAR" />
+    <result column="OPT_METHOD" property="optMethod" jdbcType="VARCHAR" />
+    <result column="OPT_PAREMS" property="optParems" jdbcType="VARCHAR" />
+    <result column="OPT_DESC" property="optDesc" jdbcType="VARCHAR" />
+    <result column="REQ_IP" property="reqIp" jdbcType="VARCHAR" />
+    <result column="USER_ROLE" property="userRole" jdbcType="VARCHAR" />
+    <result column="OPT_TIME" property="optTime" jdbcType="VARCHAR" />
+    <result column="ERROR_DESC" property="errorDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    LOG_ID, USER_ID, USER_NAME, ACCOUNT, OPT_DATE, OPT_STATUS, OPT_METHOD, OPT_PAREMS, 
+    OPT_DESC, REQ_IP, USER_ROLE, OPT_TIME, ERROR_DESC
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.liuerchong.log.pojo.BaseErrorlogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ERP.BASE_ERRORLOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.liuerchong.log.pojo.BaseErrorlogExample" >
+    delete from ERP.BASE_ERRORLOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.liuerchong.log.pojo.BaseErrorlog" >
+    insert into ERP.BASE_ERRORLOG (LOG_ID, USER_ID, USER_NAME, 
+      ACCOUNT, OPT_DATE, OPT_STATUS, 
+      OPT_METHOD, OPT_PAREMS, OPT_DESC, 
+      REQ_IP, USER_ROLE, OPT_TIME, 
+      ERROR_DESC)
+    values (#{logId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{account,jdbcType=VARCHAR}, #{optDate,jdbcType=VARCHAR}, #{optStatus,jdbcType=VARCHAR}, 
+      #{optMethod,jdbcType=VARCHAR}, #{optParems,jdbcType=VARCHAR}, #{optDesc,jdbcType=VARCHAR}, 
+      #{reqIp,jdbcType=VARCHAR}, #{userRole,jdbcType=VARCHAR}, #{optTime,jdbcType=VARCHAR}, 
+      #{errorDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liuerchong.log.pojo.BaseErrorlog" >
+    insert into ERP.BASE_ERRORLOG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        LOG_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="account != null" >
+        ACCOUNT,
+      </if>
+      <if test="optDate != null" >
+        OPT_DATE,
+      </if>
+      <if test="optStatus != null" >
+        OPT_STATUS,
+      </if>
+      <if test="optMethod != null" >
+        OPT_METHOD,
+      </if>
+      <if test="optParems != null" >
+        OPT_PAREMS,
+      </if>
+      <if test="optDesc != null" >
+        OPT_DESC,
+      </if>
+      <if test="reqIp != null" >
+        REQ_IP,
+      </if>
+      <if test="userRole != null" >
+        USER_ROLE,
+      </if>
+      <if test="optTime != null" >
+        OPT_TIME,
+      </if>
+      <if test="errorDesc != null" >
+        ERROR_DESC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="optDate != null" >
+        #{optDate,jdbcType=VARCHAR},
+      </if>
+      <if test="optStatus != null" >
+        #{optStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="optMethod != null" >
+        #{optMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="optParems != null" >
+        #{optParems,jdbcType=VARCHAR},
+      </if>
+      <if test="optDesc != null" >
+        #{optDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="reqIp != null" >
+        #{reqIp,jdbcType=VARCHAR},
+      </if>
+      <if test="userRole != null" >
+        #{userRole,jdbcType=VARCHAR},
+      </if>
+      <if test="optTime != null" >
+        #{optTime,jdbcType=VARCHAR},
+      </if>
+      <if test="errorDesc != null" >
+        #{errorDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.liuerchong.log.pojo.BaseErrorlogExample" resultType="java.lang.Integer" >
+    select count(*) from ERP.BASE_ERRORLOG
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ERP.BASE_ERRORLOG
+    <set >
+      <if test="record.logId != null" >
+        LOG_ID = #{record.logId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        USER_ID = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null" >
+        USER_NAME = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.account != null" >
+        ACCOUNT = #{record.account,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optDate != null" >
+        OPT_DATE = #{record.optDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optStatus != null" >
+        OPT_STATUS = #{record.optStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optMethod != null" >
+        OPT_METHOD = #{record.optMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optParems != null" >
+        OPT_PAREMS = #{record.optParems,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optDesc != null" >
+        OPT_DESC = #{record.optDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reqIp != null" >
+        REQ_IP = #{record.reqIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userRole != null" >
+        USER_ROLE = #{record.userRole,jdbcType=VARCHAR},
+      </if>
+      <if test="record.optTime != null" >
+        OPT_TIME = #{record.optTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.errorDesc != null" >
+        ERROR_DESC = #{record.errorDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ERP.BASE_ERRORLOG
+    set LOG_ID = #{record.logId,jdbcType=VARCHAR},
+      USER_ID = #{record.userId,jdbcType=VARCHAR},
+      USER_NAME = #{record.userName,jdbcType=VARCHAR},
+      ACCOUNT = #{record.account,jdbcType=VARCHAR},
+      OPT_DATE = #{record.optDate,jdbcType=VARCHAR},
+      OPT_STATUS = #{record.optStatus,jdbcType=VARCHAR},
+      OPT_METHOD = #{record.optMethod,jdbcType=VARCHAR},
+      OPT_PAREMS = #{record.optParems,jdbcType=VARCHAR},
+      OPT_DESC = #{record.optDesc,jdbcType=VARCHAR},
+      REQ_IP = #{record.reqIp,jdbcType=VARCHAR},
+      USER_ROLE = #{record.userRole,jdbcType=VARCHAR},
+      OPT_TIME = #{record.optTime,jdbcType=VARCHAR},
+      ERROR_DESC = #{record.errorDesc,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

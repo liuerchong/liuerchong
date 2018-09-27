@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd	
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	
+	 <!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">    
+        <property name="webBindingInitializer" >    
+            <bean class = "com.liuerchong.handlerAdapter.CustomerWebBindingInitializer"/>    
+        </property >    
+    </bean>   -->
+	<mvc:annotation-driven/>	
+	 <mvc:default-servlet-handler/> 
+		 
+	<context:component-scan base-package="com.liuerchong.action" />
+	<!-- <context:component-scan base-package="com.json" /> -->
+	<!-- 启动对@AspectJ注解的支持  -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+	<!-- 配置静态资源映射  -->
+	<!-- 指定/WEB-INF/js   /WEB-INF/css/  下的所有的静态资源包括子目录下的静态资源  都不被拦截-->
+	<!--  mapping=/js/**  :表示访问静态资源的路径的形式    可以访问 /js/下的静态资源或者所有的子目录下的静态资源-->
+	<!-- <mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
+	<mvc:resources location="/WEB-INF/css/" mapping="/css/**"/> -->
+	
+	
+	<!-- 对静态资源文件的访问  restful-->     
+	<mvc:resources mapping="/admin/**" location="/admin/" />
+	<mvc:resources mapping="/static/**" location="/static/" />
+	<mvc:resources mapping="/lib/**" location="/lib/" />
+	<mvc:resources mapping="/plugins/**" location="/plugins/" />
+	<mvc:resources mapping="/uploadFiles/**" location="/uploadFiles/" /> 
+	<!-- <mvc:resources location="/WEB-INF/css/" mapping="/css/**"/> -->
+
+	<!-- 访问拦截  -->  
+  	<!-- <mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**/**"/>
+			<bean class="com.liu.interceptor.LoginHandlerInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors> -->
+	 
+	<!-- 配置SpringMVC的视图解析器 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/pages/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<!-- 启用默认配置 -->
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			<!-- 配置Fastjson支持 -->
+			<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html;charset=UTF-8</value>
+						<value>application/json</value>
+					</list>
+				</property>
+				<property name="features">
+					<list>
+						<value>WriteMapNullValue</value>
+						<value>QuoteFieldNames</value>
+						<value>WriteDateUseDateFormat</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	
+	<!-- <bean id="exceptionResolver" class="com.liu.resolver.MyExceptionResolver"></bean>
+	上传拦截，如最大上传值及最小上传值
+	  <bean id="multipartResolver"   class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >   
+		  <property name="maxUploadSize">    
+	          <value>104857600</value>    
+	       </property>   
+	        <property name="maxInMemorySize">    
+	            <value>4096</value>    
+	        </property>   
+	         <property name="defaultEncoding">    
+	            <value>utf-8</value>    
+	        </property> 
+    </bean>   -->
+	
+</beans>

@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liuerchong.job.mapper.ScheduleJobMapper" >
+  <resultMap id="BaseResultMap" type="com.liuerchong.job.pojo.ScheduleJob" >
+    <id column="jobId" property="jobid" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="DATE" />
+    <result column="updateTime" property="updatetime" jdbcType="DATE" />
+    <result column="job_name" property="jobName" jdbcType="VARCHAR" />
+    <result column="job_group" property="jobGroup" jdbcType="VARCHAR" />
+    <result column="job_status" property="jobStatus" jdbcType="VARCHAR" />
+    <result column="cron_expression" property="cronExpression" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="bean_class" property="beanClass" jdbcType="VARCHAR" />
+    <result column="is_concurrent" property="isConcurrent" jdbcType="VARCHAR" />
+    <result column="spring_id" property="springId" jdbcType="VARCHAR" />
+    <result column="method_name" property="methodName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    jobId, createTime, updateTime, job_name, job_group, job_status, cron_expression, 
+    description, bean_class, is_concurrent, spring_id, method_name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.liuerchong.job.pojo.ScheduleJobExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SCHEDULE_JOB
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SCHEDULE_JOB
+    where jobId = #{jobid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SCHEDULE_JOB
+    where jobId = #{jobid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.liuerchong.job.pojo.ScheduleJobExample" >
+    delete from SCHEDULE_JOB
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.liuerchong.job.pojo.ScheduleJob" >
+    insert into SCHEDULE_JOB (jobId, createTime, updateTime, 
+      job_name, job_group, job_status, 
+      cron_expression, description, bean_class, 
+      is_concurrent, spring_id, method_name
+      )
+    values (#{jobid,jdbcType=VARCHAR}, #{createtime,jdbcType=DATE}, #{updatetime,jdbcType=DATE}, 
+      #{jobName,jdbcType=VARCHAR}, #{jobGroup,jdbcType=VARCHAR}, #{jobStatus,jdbcType=VARCHAR}, 
+      #{cronExpression,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{beanClass,jdbcType=VARCHAR}, 
+      #{isConcurrent,jdbcType=VARCHAR}, #{springId,jdbcType=VARCHAR}, #{methodName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.liuerchong.job.pojo.ScheduleJob" >
+    insert into SCHEDULE_JOB
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jobid != null" >
+        jobId,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+      <if test="jobName != null" >
+        job_name,
+      </if>
+      <if test="jobGroup != null" >
+        job_group,
+      </if>
+      <if test="jobStatus != null" >
+        job_status,
+      </if>
+      <if test="cronExpression != null" >
+        cron_expression,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="beanClass != null" >
+        bean_class,
+      </if>
+      <if test="isConcurrent != null" >
+        is_concurrent,
+      </if>
+      <if test="springId != null" >
+        spring_id,
+      </if>
+      <if test="methodName != null" >
+        method_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jobid != null" >
+        #{jobid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=DATE},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=DATE},
+      </if>
+      <if test="jobName != null" >
+        #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobGroup != null" >
+        #{jobGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="jobStatus != null" >
+        #{jobStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="cronExpression != null" >
+        #{cronExpression,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="beanClass != null" >
+        #{beanClass,jdbcType=VARCHAR},
+      </if>
+      <if test="isConcurrent != null" >
+        #{isConcurrent,jdbcType=VARCHAR},
+      </if>
+      <if test="springId != null" >
+        #{springId,jdbcType=VARCHAR},
+      </if>
+      <if test="methodName != null" >
+        #{methodName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.liuerchong.job.pojo.ScheduleJobExample" resultType="java.lang.Integer" >
+    select count(*) from SCHEDULE_JOB
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SCHEDULE_JOB
+    <set >
+      <if test="record.jobid != null" >
+        jobId = #{record.jobid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createTime = #{record.createtime,jdbcType=DATE},
+      </if>
+      <if test="record.updatetime != null" >
+        updateTime = #{record.updatetime,jdbcType=DATE},
+      </if>
+      <if test="record.jobName != null" >
+        job_name = #{record.jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobGroup != null" >
+        job_group = #{record.jobGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobStatus != null" >
+        job_status = #{record.jobStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cronExpression != null" >
+        cron_expression = #{record.cronExpression,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.beanClass != null" >
+        bean_class = #{record.beanClass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isConcurrent != null" >
+        is_concurrent = #{record.isConcurrent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.springId != null" >
+        spring_id = #{record.springId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.methodName != null" >
+        method_name = #{record.methodName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SCHEDULE_JOB
+    set jobId = #{record.jobid,jdbcType=VARCHAR},
+      createTime = #{record.createtime,jdbcType=DATE},
+      updateTime = #{record.updatetime,jdbcType=DATE},
+      job_name = #{record.jobName,jdbcType=VARCHAR},
+      job_group = #{record.jobGroup,jdbcType=VARCHAR},
+      job_status = #{record.jobStatus,jdbcType=VARCHAR},
+      cron_expression = #{record.cronExpression,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      bean_class = #{record.beanClass,jdbcType=VARCHAR},
+      is_concurrent = #{record.isConcurrent,jdbcType=VARCHAR},
+      spring_id = #{record.springId,jdbcType=VARCHAR},
+      method_name = #{record.methodName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liuerchong.job.pojo.ScheduleJob" >
+    update SCHEDULE_JOB
+    <set >
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=DATE},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=DATE},
+      </if>
+      <if test="jobName != null" >
+        job_name = #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobGroup != null" >
+        job_group = #{jobGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="jobStatus != null" >
+        job_status = #{jobStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="cronExpression != null" >
+        cron_expression = #{cronExpression,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="beanClass != null" >
+        bean_class = #{beanClass,jdbcType=VARCHAR},
+      </if>
+      <if test="isConcurrent != null" >
+        is_concurrent = #{isConcurrent,jdbcType=VARCHAR},
+      </if>
+      <if test="springId != null" >
+        spring_id = #{springId,jdbcType=VARCHAR},
+      </if>
+      <if test="methodName != null" >
+        method_name = #{methodName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where jobId = #{jobid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liuerchong.job.pojo.ScheduleJob" >
+    update SCHEDULE_JOB
+    set createTime = #{createtime,jdbcType=DATE},
+      updateTime = #{updatetime,jdbcType=DATE},
+      job_name = #{jobName,jdbcType=VARCHAR},
+      job_group = #{jobGroup,jdbcType=VARCHAR},
+      job_status = #{jobStatus,jdbcType=VARCHAR},
+      cron_expression = #{cronExpression,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      bean_class = #{beanClass,jdbcType=VARCHAR},
+      is_concurrent = #{isConcurrent,jdbcType=VARCHAR},
+      spring_id = #{springId,jdbcType=VARCHAR},
+      method_name = #{methodName,jdbcType=VARCHAR}
+    where jobId = #{jobid,jdbcType=VARCHAR}
+  </update>
+</mapper>

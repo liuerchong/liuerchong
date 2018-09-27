@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liuerchong.goods.mapper.GoodsDescMapper" >
+  <resultMap id="BaseResultMap" type="com.liuerchong.goods.pojo.GoodsDesc" >
+    <result column="GOODS_ID" property="goodsId" jdbcType="DECIMAL" />
+    <result column="INTRODUCTION" property="introduction" jdbcType="VARCHAR" />
+    <result column="SPECIFICATION_ITEMS" property="specificationItems" jdbcType="VARCHAR" />
+    <result column="ITEM_IMAGES" property="itemImages" jdbcType="VARCHAR" />
+    <result column="SALE_SERVICE" property="saleService" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    GOODS_ID, INTRODUCTION, SPECIFICATION_ITEMS, ITEM_IMAGES, SALE_SERVICE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.liuerchong.goods.pojo.GoodsDescExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ERP.GOODS_DESC
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.liuerchong.goods.pojo.GoodsDescExample" >
+    delete from ERP.GOODS_DESC
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.liuerchong.goods.pojo.GoodsDesc" >
+    insert into ERP.GOODS_DESC (GOODS_ID, INTRODUCTION, SPECIFICATION_ITEMS, 
+      ITEM_IMAGES, SALE_SERVICE)
+    values (#{goodsId,jdbcType=DECIMAL}, #{introduction,jdbcType=VARCHAR}, #{specificationItems,jdbcType=VARCHAR}, 
+      #{itemImages,jdbcType=VARCHAR}, #{saleService,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liuerchong.goods.pojo.GoodsDesc" >
+    insert into ERP.GOODS_DESC
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        GOODS_ID,
+      </if>
+      <if test="introduction != null" >
+        INTRODUCTION,
+      </if>
+      <if test="specificationItems != null" >
+        SPECIFICATION_ITEMS,
+      </if>
+      <if test="itemImages != null" >
+        ITEM_IMAGES,
+      </if>
+      <if test="saleService != null" >
+        SALE_SERVICE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="specificationItems != null" >
+        #{specificationItems,jdbcType=VARCHAR},
+      </if>
+      <if test="itemImages != null" >
+        #{itemImages,jdbcType=VARCHAR},
+      </if>
+      <if test="saleService != null" >
+        #{saleService,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.liuerchong.goods.pojo.GoodsDescExample" resultType="java.lang.Integer" >
+    select count(*) from ERP.GOODS_DESC
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ERP.GOODS_DESC
+    <set >
+      <if test="record.goodsId != null" >
+        GOODS_ID = #{record.goodsId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.introduction != null" >
+        INTRODUCTION = #{record.introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.specificationItems != null" >
+        SPECIFICATION_ITEMS = #{record.specificationItems,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemImages != null" >
+        ITEM_IMAGES = #{record.itemImages,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saleService != null" >
+        SALE_SERVICE = #{record.saleService,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ERP.GOODS_DESC
+    set GOODS_ID = #{record.goodsId,jdbcType=DECIMAL},
+      INTRODUCTION = #{record.introduction,jdbcType=VARCHAR},
+      SPECIFICATION_ITEMS = #{record.specificationItems,jdbcType=VARCHAR},
+      ITEM_IMAGES = #{record.itemImages,jdbcType=VARCHAR},
+      SALE_SERVICE = #{record.saleService,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
